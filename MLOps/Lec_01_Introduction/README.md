@@ -37,4 +37,11 @@ Going from "cool robot on my laptop" → "robot that a cookie shop can depend on
 
 ---
 
+## 🔗 Related reading for this lecture
+
+- **[AWS Certified Machine Learning Engineer — Study Guide](https://www.rohitpatel.in/2025/11/aws-certified-machine-learning-engineer.html)** — an exam-style map of the same MLOps ideas (data prep, model development, deployment, monitoring & security) onto AWS SageMaker / Model Monitor. Good for translating the vendor-neutral concepts here into a cloud-specific playbook.
+- **[TS-01 / ML — algorithm fundamentals](https://github.com/rpaut03l/TS-01/tree/main/ML)** — if you want to brush up on the actual ML algorithms (Regression, Decision Trees, Random Forest, Neural Networks, etc.) that live inside the "Algorithms" box of the ML-system diagram, that's the companion repo. Recommended as a prerequisite if any algorithm name here is unfamiliar.
+
+---
+
 > *MLOps · Lec 1 · github.com/rpaut03l/TS-02*
