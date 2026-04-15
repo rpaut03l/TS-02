@@ -1,4 +1,4 @@
-# 📚 MLOps
+#  MLOps
 
 ### *Machine Learning Operations — notes, code, and practice*
 
@@ -8,7 +8,7 @@
 
 ---
 
-## 🧠 What even is MLOps?
+##  What even is MLOps?
 
 ### 👶 Easy Story
 You bake a cake at home for your birthday (that's **ML training** — cool, fun, once-in-a-while). Now imagine you open a **bakery**: you bake hundreds of cakes every day, new flavours, you deliver them on time, you throw out the bad batches, the oven breaks, a new helper joins, a customer complains about a raisin… That's **MLOps**: the *bakery operations* around the fun "making one cake" part.
