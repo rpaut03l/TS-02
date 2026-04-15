@@ -22,7 +22,7 @@ AI work — training neural networks, running image filters, rendering 3D games 
 
 | File | What it is |
 |---|---|
-| [gpu_lec01_intro_theory.md](gpu_lec01_intro_theory.md) | The full tour — hardware families (CPU/GPU/TPU/NPU/FPGA), GPU vs CPU architecture, compute + memory hierarchy, Amdahl's Law with worked math, why GPUs dominate AI |
+| [gpu_lec01_intro_theory.md](gpu_lec01_intro_theory.md) | The full tour — **the 6 processors powering modern AI (CPU / GPU / TPU / NPU / LPU / DPU)** + FPGA, GPU vs CPU architecture, compute + memory hierarchy, Amdahl's Law with worked math, why GPUs dominate AI, and how all the chips collaborate in one system |
 | [gpu_lec01_intro_code.md](gpu_lec01_intro_code.md) | Runnable Python code: inspect your GPU with `nvidia-smi`, NumPy vs CuPy vector add, measure actual speedup, first taste of `numba.cuda` |
 | [gpu_lec01_intro_practice.md](gpu_lec01_intro_practice.md) | **Colab-ready notebook** — end-to-end benchmarks of vector add and matrix multiply across CPU, NumPy, CuPy, and pure CUDA. You'll literally watch the speedup climb |
 
@@ -31,7 +31,8 @@ AI work — training neural networks, running image filters, rendering 3D games 
 ## 🎯 After this lecture you should be able to…
 
 - Explain in **one sentence** why a GPU beats a CPU at AI workloads
-- Compare **CPU, GPU, TPU, NPU, FPGA** along at least 3 axes
+- Name the **6 processors powering modern AI** (CPU, GPU, TPU, NPU, LPU, DPU) and pick the right one for a given job
+- Compare all 6 (+ FPGA) along at least 5 axes — flexibility, throughput, latency, power efficiency, ease of use
 - Draw the **CPU and GPU compute + memory hierarchies** from memory
 - State **Amdahl's Law** and use it to compute the max possible speedup for a program that's 90% parallel
 - Run a **CuPy vector add on Google Colab** and see the actual speedup

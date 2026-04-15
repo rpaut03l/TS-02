@@ -33,7 +33,7 @@ Each GPU core is much simpler than a CPU core — but a GPU has *thousands* of t
 
 | # | Lecture | Folder |
 |---|---|---|
-| 1 | **Introduction to GPUs** — Hardware families (CPU/GPU/TPU/NPU/FPGA), memory hierarchy, Amdahl's Law, why GPUs for AI | [Lec_01_Introduction/](Lec_01_Introduction/) |
+| 1 | **Introduction to GPUs** — The 6 processors powering modern AI (CPU / GPU / TPU / NPU / LPU / DPU) + FPGA, memory hierarchy, Amdahl's Law, why GPUs for AI | [Lec_01_Introduction/](Lec_01_Introduction/) |
 | 2 | **CPU Basics · CUDA Programming Model · GPU Architecture** — ISA, threads/blocks/grids, warps, SIMT vs SIMD, memory hierarchy, full workload flow | [Lec_02_CPU_CUDA_Basics/](Lec_02_CPU_CUDA_Basics/) |
 
 Each lecture folder has the same **trio** of files:

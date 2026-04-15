@@ -17,8 +17,8 @@
 | # | Topic | Jump |
 |---|-------|------|
 | 1 | Why Hardware Matters for AI | [§1](#1-why-hardware-matters-for-ai) |
-| 2 | The Five Hardware Families | [§2](#2-the-five-hardware-families) |
-| 3 | Comparing the Five Families | [§3](#3-comparing-the-five-families) |
+| 2 | The Processor Families You'll Meet | [§2](#2-the-processor-families-youll-meet) |
+| 3 | Side-by-Side Comparison + When to Use Which | [§3](#3-side-by-side-comparison--when-to-use-which) |
 | 4 | What is a GPU? | [§4](#4-what-is-a-gpu) |
 | 5 | GPU vs CPU — The Core Architecture Difference | [§5](#5-gpu-vs-cpu--the-core-architecture-difference) |
 | 6 | Compute & Memory Hierarchy | [§6](#6-compute--memory-hierarchy) |
@@ -60,21 +60,22 @@ Billions of operations. Per image. Sequential hardware would take minutes per im
 
 ---
 
-## 2. The Five Hardware Families
+## 2. The Processor Families You'll Meet
 
-You'll hear these five abbreviations all the time. Here's the **5-year-old story** for each, then the formal definition.
+Modern AI runs on a **zoo** of specialized chips, each one good at a different slice of the workload. The popular short list — the "**6 processors powering modern AI**" — is **CPU, GPU, TPU, NPU, LPU, DPU**. On top of those, **FPGA** is worth knowing as the "reconfigurable" option. Let's walk through all seven with a 5-year-old story + the formal definition.
 
 ### 1️⃣ CPU — Central Processing Unit
 
 ```
- "The boss."
+ "The boss / the backbone."
 ```
 
 - **👶 Story:** The super-smart chef who can do *anything*. Reads any recipe. Handles surprises. But only one dish at a time.
 - **Formal:** A general-purpose processor with **few** (4-128) **very sophisticated** cores. Each core has deep pipelines, branch predictors, out-of-order execution, and lots of cache. Great at branchy, irregular, sequential code.
-- **Best for:** operating systems, databases, browsers, most day-to-day code.
-- **Bad at:** massively parallel arithmetic on arrays.
-- **Examples:** Intel Core i9, AMD Ryzen, Apple M3, ARM Cortex-A78.
+- **Role in an AI system:** the **orchestrator**. It receives the user request, schedules the job, routes it to the right accelerator (GPU/TPU/NPU/LPU/DPU), manages I/O and the OS, and assembles the final response.
+- **Pros:** most flexible, best single-thread performance, runs the OS and the whole software stack, handles anything thrown at it.
+- **Cons:** few cores, cannot train large models, low throughput for AI workloads.
+- **Examples:** Intel Core i9, AMD Ryzen, Apple M3/M4, ARM Cortex-A78.
 
 ### 2️⃣ GPU — Graphics Processing Unit
 
@@ -83,10 +84,11 @@ You'll hear these five abbreviations all the time. Here's the **5-year-old story
 ```
 
 - **👶 Story:** A thousand simple cooks who all chop onions at once. Can't improvise, can't make decisions. But if the job is *the same thing copied a thousand times*, nothing beats them.
-- **Formal:** A processor with **thousands** (2,000-20,000) of **simple** cores grouped into Streaming Multiprocessors (SMs). Built for **SIMD/SIMT** — single instruction running on many data items at the same time.
-- **Best for:** graphics, AI training & inference, scientific simulations, crypto mining.
-- **Bad at:** branchy code, irregular memory access, tasks that can't be parallelized.
-- **Examples:** NVIDIA RTX 4090, A100, H100; AMD Radeon; Apple M3 GPU.
+- **Formal:** A processor with **thousands** of **simple** cores grouped into Streaming Multiprocessors (SMs). Built for **SIMD/SIMT** — single instruction running on many data items at the same time. A modern consumer flagship like the **NVIDIA RTX 4090** has ~**16,896 CUDA cores**; datacenter parts like the H100 have ~**14,592** plus specialized tensor cores.
+- **Role in AI:** the **workhorse**. Matrix multiply → backprop → weight update, all parallelized across thousands of cores.
+- **Pros:** massive parallelism, excellent for both training *and* inference, huge ecosystem (CUDA, cuDNN, PyTorch, TensorFlow).
+- **Cons:** ~**300–700 W** per unit, very expensive (**$30k+** for an H100), overkill for small tasks.
+- **Examples:** NVIDIA RTX 4090, A100, H100, B200; AMD Instinct MI300; Apple M3 GPU.
 
 ### 3️⃣ TPU — Tensor Processing Unit
 
@@ -95,10 +97,11 @@ You'll hear these five abbreviations all the time. Here's the **5-year-old story
 ```
 
 - **👶 Story:** A kitchen that ONLY makes one thing — giant pancakes, as fast as physically possible. Can't cook anything else, but the best pancake machine on Earth.
-- **Formal:** An Application-Specific Integrated Circuit (ASIC) designed by Google for **neural network tensor operations** — primarily matrix multiply and convolutions. Uses a **systolic array** of multiply-accumulate units.
-- **Best for:** large-scale training and inference of neural networks (Google's own models and Google Cloud customers).
-- **Bad at:** anything that isn't a tensor op.
-- **Examples:** Google TPU v4, TPU v5e, TPU Ironwood.
+- **Formal:** An Application-Specific Integrated Circuit (ASIC) designed by Google for **neural network tensor operations** — primarily matrix multiply and convolutions. The key structural idea is a **systolic array** of multiply-accumulate (MAC) units where data flows *through* the array while partial sums accumulate, without being written back to memory between steps. A single TPU pod can chain **thousands of TPU chips** (8,192 on some generations) into one gigantic matrix machine.
+- **Role in AI:** Google-scale **training and inference** of neural networks, especially very large models.
+- **Pros:** systolic-array dataflow gives the highest FLOPs-per-watt on tensor ops, tight integration with TensorFlow / JAX and Google Cloud.
+- **Cons:** Google Cloud only, less flexible than a GPU, limited framework support outside the Google stack.
+- **Examples:** Google TPU v4, TPU v5e, TPU v5p, TPU Ironwood.
 
 ### 4️⃣ NPU — Neural Processing Unit
 
@@ -107,53 +110,130 @@ You'll hear these five abbreviations all the time. Here's the **5-year-old story
 ```
 
 - **👶 Story:** A small, energy-efficient chef built into your phone that specializes in recognizing your face, translating languages, and running ML features *without* the phone getting hot or the battery dying.
-- **Formal:** Low-power accelerators optimized for on-device AI inference. Use **quantized (int8)** math, small memories, and tight power budgets (~1 W).
-- **Best for:** phone cameras, speech, on-device AI without cloud round-trips.
-- **Bad at:** training, high-precision (fp32) math, general compute.
-- **Examples:** Apple Neural Engine (in every iPhone since X), Qualcomm Hexagon NPU, Samsung Exynos NPU.
+- **Formal:** Low-power accelerators optimized for **on-device AI inference**. They use **quantized** math (INT8 / INT4), small memories, and tight power budgets (typically **< 5 W**). Every modern smartphone SoC includes one.
+- **Role in AI:** runs models **entirely on-device** — no cloud round-trip, millisecond-level latency, privacy-preserving.
+- **Pros:** inference in milliseconds, ultra-low power, no network needed, privacy by default.
+- **Cons:** **inference only** (no training), limited model size (fits in on-chip memory), less accurate than full-precision GPU inference.
+- **Examples:** Apple Neural Engine (every iPhone since X), Qualcomm Hexagon NPU, Samsung Exynos NPU, MediaTek APU, Google Edge TPU.
 
-### 5️⃣ FPGA — Field-Programmable Gate Array
+### 5️⃣ LPU — Language Processing Unit
+
+```
+ "Groq's deterministic inference beast."
+```
+
+- **👶 Story:** Imagine the fastest talker in the world — a chef who has *every* ingredient already arranged on a single giant counter in front of her, so she never has to walk to the fridge. That's an LPU: one enormous on-chip cache that fits the model weights, so it *never* waits for memory.
+- **Formal:** A new class of inference accelerator (pioneered by **Groq**) designed specifically for **low-latency sequence/LLM inference**. Instead of slow HBM with caches, an LPU puts **hundreds of MB of on-chip SRAM** (e.g., ~230 MB per chip) directly next to the compute, giving **zero cache misses** and **fully deterministic execution**. Latency per token is predictable to the cycle.
+- **Role in AI:** **real-time LLM serving** — token-by-token generation where every millisecond matters (chat, streaming, agents).
+- **Pros:** **fastest token-generation** latency available (public demos show **500+ tokens/sec** on 70B-class models), zero cache misses, deterministic (no tail latency spikes).
+- **Cons:** **inference only**, limited memory per chip (so very large models need to be sharded across many chips), very new technology, small ecosystem.
+- **Examples:** Groq LPU. (Other vendors like Cerebras Wafer-Scale Engine, SambaNova, Tenstorrent occupy nearby niches in the "not-a-GPU inference chip" space.)
+
+### 6️⃣ DPU — Data Processing Unit
+
+```
+ "The data-center's traffic cop."
+```
+
+- **👶 Story:** The clerk at the busy airport who checks passports, directs luggage, manages security lines, and handles the paperwork — so the *pilots* (GPUs) can focus on flying, not passport-stamping.
+- **Formal:** A **SmartNIC** on steroids — a programmable accelerator for **network, storage, and security** work that used to be done by the CPU. Offloads things like packet processing, TLS termination, firewall rules, RDMA, and storage protocols to free up CPU cycles for the actual workload.
+- **Role in AI:** **not** for ML compute itself — it sits at the edge of each server and keeps data flowing to and from the GPUs at 200–800 Gb/s, handles security, and offloads virtualization. Critical for running GPU clusters at scale.
+- **Pros:** frees CPU for core workloads, hardware-level security, 400+ Gb/s networking, RDMA & NVMe offload.
+- **Cons:** **not an AI/ML compute chip**, complex to program (usually requires vendor SDK and low-level networking expertise), niche outside large datacenters.
+- **Examples:** NVIDIA BlueField-3, AMD Pensando, Intel IPU, Marvell OCTEON.
+
+### 7️⃣ FPGA — Field-Programmable Gate Array *(bonus — the reconfigurable option)*
 
 ```
  "The rewire-it-yourself chip."
 ```
 
 - **👶 Story:** A box of LEGO that you build into a cookie-cutter machine this week, then tear apart and build into a toaster next week. You decide what the chip *is*.
-- **Formal:** A chip containing a grid of **configurable logic blocks** that you can re-wire into almost any digital circuit. Used when you need custom hardware but can't afford to manufacture a real ASIC.
-- **Best for:** networking gear, medical devices, prototyping custom accelerators, very specific number-crunching at ultra-low latency.
-- **Bad at:** ease-of-use — you basically design the circuit yourself.
-- **Examples:** AMD-Xilinx (UltraScale+, Versal), Intel (Altera) Stratix, Lattice.
+- **Formal:** A chip containing a grid of **configurable logic blocks** that you can re-wire (in software, at boot) into almost any digital circuit. Used when you need custom hardware but can't afford to manufacture a real ASIC.
+- **Role in AI:** custom inference engines with very specific latency / power constraints; prototyping next-generation accelerators; smart-NICs; medical and scientific devices.
+- **Pros:** ultra-low latency, reconfigurable, great for niche workloads.
+- **Cons:** you are basically designing a circuit — the hardest of all these to program.
+- **Examples:** AMD–Xilinx (UltraScale+, Versal), Intel (Altera) Stratix, Lattice.
 
 [↑ Back to Top](#-gpu-programming-lec-1--introduction-theory)
 
 ---
 
-## 3. Comparing the Five Families
+## 3. Side-by-Side Comparison + When to Use Which
 
-Five dimensions that matter for AI. Higher dots = better on that axis.
+### Dots-out-of-5 along the five axes that matter most
+(Higher dots = better on that axis.)
 
 ```
-┌──────────┬───────────┬───────────┬───────────┬───────────┬───────────┐
-│          │    CPU    │    GPU    │    TPU    │    NPU    │   FPGA    │
-├──────────┼───────────┼───────────┼───────────┼───────────┼───────────┤
-│Flexibility ●●●●●      │   ●●      │    ●      │    ●      │   ●●●●    │
-│Throughput│    ●      │  ●●●●●    │  ●●●●●    │   ●●      │   ●●●     │
-│Latency   │  ●●●      │   ●●●     │   ●●      │  ●●●●     │  ●●●●●    │
-│Power eff.│   ●●      │    ●      │   ●●●     │  ●●●●●    │   ●●●     │
-│Ease of   │ ●●●●●     │  ●●●●     │   ●●      │   ●●      │    ●      │
-│  use     │           │           │           │           │           │
-└──────────┴───────────┴───────────┴───────────┴───────────┴───────────┘
+┌───────────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐
+│ Axis          │  CPU    │  GPU    │  TPU    │  NPU    │  LPU    │  DPU    │ FPGA    │
+├───────────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
+│ Flexibility   │ ●●●●●   │  ●●●    │   ●●    │   ●●    │   ●     │   ●●    │ ●●●●    │
+│ Throughput    │   ●     │ ●●●●●   │ ●●●●●   │  ●●     │ ●●●●    │  ●●     │ ●●●     │
+│ Latency       │  ●●●    │  ●●●    │   ●●    │ ●●●●    │ ●●●●●   │ ●●●●    │●●●●●    │
+│ Power eff.    │   ●●    │   ●     │  ●●●    │●●●●●    │  ●●●    │ ●●●●    │ ●●●     │
+│ Ease of use   │ ●●●●●   │ ●●●●    │  ●●     │  ●●     │   ●●    │   ●     │  ●      │
+└───────────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┘
 ```
 
-### Reading the table
-- **CPU** is the most **flexible** and easy to program but has low throughput.
-- **GPU** is the sweet-spot for AI training — high throughput, good ecosystem, not *too* hard to program.
-- **TPU** goes further on throughput but locks you into Google's stack.
-- **NPU** wins on power efficiency — that's why it's in your phone.
-- **FPGA** wins on latency but is a pain to program.
+### When to use which — at-a-glance table
+
+```
+┌──────────┬────────────────────────────────────────────────────┐
+│ Processor│ Primary job                                        │
+├──────────┼────────────────────────────────────────────────────┤
+│ CPU      │ Orchestration · preprocessing · OS · "glue"         │
+│ GPU      │ Training & deep learning · general AI workhorse    │
+│ TPU      │ Google-scale tensor workloads (training + infer.)  │
+│ NPU      │ Edge / mobile / on-device inference                │
+│ LPU      │ Real-time LLM serving (lowest token latency)       │
+│ DPU      │ Data-center network / storage / security offload   │
+│ FPGA     │ Custom accelerators · ultra-low-latency niches     │
+└──────────┴────────────────────────────────────────────────────┘
+```
+
+### Choose based on these five factors
+When picking hardware for an AI workload, weigh:
+
+1. **Latency** — how quickly must a single request return?
+2. **Parallelism** — can the work be split into many identical pieces?
+3. **Power** — is this in a phone, a laptop, or a datacenter?
+4. **Cost** — chip price, operating electricity, engineering time.
+5. **Scale** — one user, one million users, or one billion?
 
 ### The "specialization vs flexibility" trade-off
-Moving left to right, you trade **generality** for **speed/efficiency** on a narrower workload. A CPU can run anything but none of it is world-class fast. A TPU or NPU is incredibly fast at tensor ops but can't even load an OS.
+Moving left (CPU) to right (DPU/FPGA) in the comparison above, you trade **generality** for **speed/efficiency** on a narrower workload. A CPU can run anything but none of it is world-class fast. A TPU or LPU is incredibly fast at its specialty but can't even load an OS.
+
+### How the processors work together in one AI system
+Here's how all 6 of the "modern AI" processors line up in a real deployment:
+
+```
+┌────────────────────────────────────────────────────────────────────┐
+│                                                                    │
+│   User Request                                                     │
+│        │                                                           │
+│        ▼                                                           │
+│     ┌─────┐      schedule + preprocess                             │
+│     │ CPU │─────────────────────────────────────────────┐          │
+│     └─────┘                                              │          │
+│        │                                                 │          │
+│        │                                                 │          │
+│        ▼                                                 │          │
+│    ┌────────────────────────────────────────────────┐   │          │
+│    │  Choose the right accelerator for the job…      │   │          │
+│    └────────────────────────────────────────────────┘   │          │
+│        │                                                 │          │
+│        ├── heavy training / dense matmul  →  GPU / TPU   │          │
+│        ├── real-time LLM tokens           →  LPU         │          │
+│        ├── on-device inference            →  NPU         │          │
+│        └── network + security offload     →  DPU         │          │
+│                                                          │          │
+│    After compute, result goes back → CPU → user         │          │
+│                                                          │          │
+└────────────────────────────────────────────────────────────────────┘
+```
+
+**The key point:** these chips are **collaborators**, not competitors. A real AI platform uses several at once — CPUs for orchestration, GPUs for training, LPUs or NPUs for serving, DPUs for networking. "Which is best" is always answered with "best at *what*, under *which* constraints."
 
 [↑ Back to Top](#-gpu-programming-lec-1--introduction-theory)
 
@@ -397,15 +477,17 @@ Key ideas to remember:
 ╔══════════════════════════════════════════════════════════════╗
 ║  GPU LEC 1 ONE-LINERS                                        ║
 ╠══════════════════════════════════════════════════════════════╣
-║  CPU = few smart cores, low throughput, great flexibility    ║
-║  GPU = thousands of simple cores, massive parallelism       ║
-║  TPU = ASIC for tensor ops (Google)                         ║
-║  NPU = low-power on-device AI (phones)                      ║
+║  CPU = few smart cores, orchestration & glue                ║
+║  GPU = thousands of simple cores, training + inference      ║
+║  TPU = ASIC systolic array, Google-scale tensor workloads   ║
+║  NPU = low-power on-device AI (phones, edge)                ║
+║  LPU = zero-cache-miss SRAM, real-time LLM serving (Groq)   ║
+║  DPU = SmartNIC offload: network + storage + security       ║
 ║  FPGA = reconfigurable logic (custom accelerators)          ║
 ║                                                             ║
 ║  GPUs hide memory latency with PARALLELISM, not caches      ║
 ║  Memory wall: 1 DRAM fetch ≈ 200 arithmetic ops             ║
-║  Shared memory = programmer-managed cache on a GPU SM        ║
+║  Shared memory = programmer-managed cache on a GPU SM       ║
 ║  HBM → 10-30× more bandwidth than CPU DRAM                  ║
 ║                                                             ║
 ║  Amdahl: Speedup = 1 / ((1−P) + P/N)                        ║
@@ -414,13 +496,16 @@ Key ideas to remember:
 ║  Host = CPU,  Device = GPU                                  ║
 ║  Kernel = a function that runs on the GPU                   ║
 ║  Data flows: host → PCIe → device → compute → back → host   ║
+║                                                             ║
+║  Choose processor on: latency · parallelism · power ·       ║
+║                       cost · scale                          ║
 ╚══════════════════════════════════════════════════════════════╝
 ```
 
 ### ⚡ Red-flag questions
 1. **"Why are GPUs good for AI and CPUs aren't?"** — Deep learning is matrix multiply + convolution, which are thousands of independent arithmetic operations per input. GPUs have thousands of parallel cores; CPUs have a few dozen. GPUs can feed the cores with high-bandwidth HBM. The workload matches the hardware exactly.
 
-2. **"Name 5 hardware families used for AI."** — CPU, GPU, TPU, NPU, FPGA. (Bonus: ASIC is the generic term; TPU and NPU are both ASICs.)
+2. **"Name the 6 processor families powering modern AI."** — CPU, GPU, TPU, NPU, LPU, DPU. (Bonus: FPGA is the "reconfigurable" seventh; ASIC is the generic term — TPU, NPU, and LPU are all ASICs.)
 
 3. **"State Amdahl's Law."** — `Speedup(N) = 1 / ((1 − P) + P/N)`, where P is the parallel fraction and N is the number of workers. Max speedup as N → ∞ is `1 / (1 − P)`.
 
