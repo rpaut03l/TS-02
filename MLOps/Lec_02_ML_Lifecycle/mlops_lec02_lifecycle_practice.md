@@ -14,7 +14,14 @@
 4. By the end you will have gone through **all 3 phases** of the lifecycle on one real-ish dataset.
 
 ### Dataset
-We'll use **California Housing** (regression) — built in to sklearn, no download, no Kaggle competition needed. Small enough to fit comfortably on the free tier, big enough to feel real (20,640 rows, 8 features).
+We'll use **California Housing** (regression) — a small, well-known dataset with 20,640 rows and 8 features. Cell 2 tries to fetch it via `sklearn.datasets.fetch_california_housing`, and **automatically falls back to a synthetic dataset with identical columns** if the network is unavailable. So the rest of the notebook works whether you have internet or not.
+
+> ⚠️ **Kaggle users:** Kaggle notebooks have **internet disabled by default**. To let the fetch succeed:
+> 1. Open the right-hand **Settings** panel.
+> 2. Find **Internet** and toggle it to **On**.
+> 3. (You may need to phone-verify your Kaggle account the first time.)
+>
+> If you don't want to turn internet on, the fallback in Cell 2 will activate automatically and the notebook will run with a synthetic dataset — no errors, just a short warning.
 
 ---
 
@@ -28,9 +35,8 @@ We'll use **California Housing** (regression) — built in to sklearn, no downlo
 import time, joblib, numpy as np, pandas as pd, matplotlib.pyplot as plt
 from datetime import datetime
 
-from sklearn.datasets import fetch_california_housing
 from sklearn.model_selection import (
-    train_test_split, GridSearchCV, RandomizedSearchCV, cross_val_score
+    train_test_split, GridSearchCV, RandomizedSearchCV
 )
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
@@ -43,10 +49,66 @@ print("✅ Imports ready")
 
 ---
 
-### Cell 2 — Data Collection
+### Cell 2 — Data Collection (with offline fallback)
+
+### 👶 What this does
+Tries to download the real California Housing dataset. If the download fails (no internet on Kaggle, DNS issues, mirror is down, etc.), it **automatically falls back** to a synthetic dataset with the **exact same column names and dtypes**, so every downstream cell works without any edits.
+
 ```python
-raw = fetch_california_housing(as_frame=True)
-df = raw.frame
+def load_housing():
+    """
+    Load California Housing. Try network first, fall back to a synthetic
+    dataset with the SAME column names so downstream cells work unchanged.
+    Returns a pandas DataFrame with columns:
+      MedInc, HouseAge, AveRooms, AveBedrms, Population, AveOccup,
+      Latitude, Longitude, MedHouseVal
+    """
+    # --- Attempt 1: real dataset over the network ---
+    try:
+        from sklearn.datasets import fetch_california_housing
+        raw = fetch_california_housing(as_frame=True)
+        print("✅ Fetched real California Housing dataset from the network.")
+        return raw.frame
+    except Exception as e:
+        print(f"⚠️ Network fetch failed ({e.__class__.__name__}: {e}).")
+        print("   Falling back to a synthetic California-Housing-shaped dataset.")
+
+    # --- Attempt 2: synthetic fallback ---
+    rng = np.random.default_rng(42)
+    n = 20_000
+
+    MedInc     = np.abs(rng.normal(4.0, 2.0, n)).round(4)
+    HouseAge   = rng.integers(1, 53, n).astype(float)
+    AveRooms   = (np.abs(rng.normal(5.5, 2.0, n)) + 1.0).round(4)
+    AveBedrms  = (AveRooms * rng.uniform(0.15, 0.25, n)).round(4)
+    Population = np.abs(rng.normal(1400, 900, n)).round(0)
+    AveOccup   = (np.abs(rng.normal(3.1, 1.2, n)) + 0.5).round(4)
+    Latitude   = rng.uniform(32.5, 42.0, n).round(4)
+    Longitude  = rng.uniform(-124.3, -114.3, n).round(4)
+
+    # Target — roughly linear in income, mild dependence on age and occupancy,
+    # plus noise. Clipped to a realistic range.
+    noise = rng.normal(0, 0.4, n)
+    MedHouseVal = (
+        0.45 * MedInc
+        + 0.015 * (52 - HouseAge)
+        - 0.03 * AveOccup
+        + noise
+    ).clip(0.15, 5.0).round(4)
+
+    return pd.DataFrame({
+        "MedInc": MedInc,
+        "HouseAge": HouseAge,
+        "AveRooms": AveRooms,
+        "AveBedrms": AveBedrms,
+        "Population": Population,
+        "AveOccup": AveOccup,
+        "Latitude": Latitude,
+        "Longitude": Longitude,
+        "MedHouseVal": MedHouseVal,
+    })
+
+df = load_housing()
 print("Shape:", df.shape)
 df.head()
 ```
@@ -60,6 +122,8 @@ df.head()
 - **AveOccup** = average occupancy
 - **Latitude / Longitude** = coordinates
 - **MedHouseVal** = median house price (the target we'll predict, in 100k USD)
+
+If you see `⚠️ Network fetch failed` followed by `Falling back to a synthetic dataset`, the notebook will continue to work — the numbers will be slightly different but every downstream cell runs to completion exactly the same way.
 
 ---
 
@@ -257,7 +321,6 @@ Simulate a day later: the world looks slightly different, so we re-run the same 
 
 ```python
 # Pretend new data: same structure, different random subset
-rng = np.random.default_rng(1)
 new_df = df.sample(frac=0.9, random_state=1).reset_index(drop=True)
 
 result2 = training_pipeline(new_df)
@@ -337,14 +400,17 @@ y_expensive = (df["MedHouseVal"] > 2.5).astype(int).values  # threshold at 250k
 classifier = LogisticRegression().fit(X_tr_preds, y_expensive)
 
 def composed_predict(features_vec):
-    price_pred = pipe_live.predict([features_vec])[0]
-    is_expensive = classifier.predict([[price_pred]])[0]
-    return {"price_100k": round(float(price_pred), 3),
-            "expensive": bool(is_expensive)}
+    # Ensure a clean 2D row for sklearn, regardless of caller shape
+    x2d = np.asarray(features_vec, dtype=float).reshape(1, -1)
+    price_pred = float(pipe_live.predict(x2d)[0])
+    is_expensive = bool(classifier.predict(np.array([[price_pred]]))[0])
+    return {"price_100k": round(price_pred, 3), "expensive": is_expensive}
 
 for i in [0, 100, 1000]:
-    x = df.iloc[i][loaded["feature_cols"]].values
-    print(f"Sample {i}:", composed_predict(x), f"(actual: {df.iloc[i]['MedHouseVal']:.3f})")
+    # Double brackets guarantee a 2D DataFrame slice → clean .values
+    x = df.iloc[[i]][loaded["feature_cols"]].values[0]
+    print(f"Sample {i}:", composed_predict(x),
+          f"(actual: {df.iloc[i]['MedHouseVal']:.3f})")
 ```
 
 ### 👶 Lesson
