@@ -4,7 +4,7 @@
 
 > 🔗 **Repo:** [github.com/rpaut03l/TS-02](https://github.com/rpaut03l/TS-02) · GPU Programming track
 >
-> **Style:** Every topic explained like you're **5 years old first** (easy story + picture), then deeper technical details, then real runnable code.
+> **Style:** Every topic explained (easy story + picture), then deeper technical details, then real runnable code.
 
 ---
 
