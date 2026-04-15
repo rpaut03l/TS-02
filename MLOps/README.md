@@ -1,6 +1,6 @@
-# 📚 MLOps — CSL7040
+# 📚 MLOps
 
-### *Machine Learning Operations · IIT Jodhpur · Trimester 2 · Prof. Dr. Hardik Jain*
+### *Machine Learning Operations — notes, code, and practice*
 
 > 🔗 **Repo:** [github.com/rpaut03l/TS-02](https://github.com/rpaut03l/TS-02) · MLOps Track
 >
@@ -47,29 +47,18 @@ Each lecture folder has the same **trio** of files:
 
 ---
 
-## 🔗 Reference
+## 📚 Topic roadmap
 
-- **Slides:** Dr. Hardik Jain, IIT Jodhpur — CSL7040 MLOps
-- Lecture 1 reference: slides of Dr. Yashaswi Verma
-- Lecture 2 reference: slides of Dr. Joseph E. Gonzalez, CS294 (UC Berkeley)
-- **Course schedule** (from Lec 2 slide 26):
+Planned topics in this track (more folders will be added over time):
 
-```
- Lec  Date          Topic                                         Lab
- L1   11-04-2026    Introduction to the course                    —
- L2   12-04-2026    Machine Learning Lifecycle / Technologies     —
- L3   18-04-2026    Data preprocessing and normalization          Colab
- L4   19-04-2026    Data Visualization                            Colab
- L5   25-04-2026    Versioning, Environments & Orchestration      Lab
- L6   26-04-2026    Quantization                                  Colab
- A1   30-04-2026    Bird Migration Problem (EDA)                  15 marks
- L7   02-05-2026    Reproducibility & Experiment tracking         Kaggle
- Q1   10-05-2026    Quiz: MCQ                                     20 marks
- A2   15-05-2026    Versioning / Reproducibility                  15 marks
- Q2   17-05-2026    Quiz: MSQ                                     20 marks
- Q3   24-05-2026    Lab Exam                                      30 marks
-```
+- ✅ **Lec 1** — Introduction to MLOps
+- ✅ **Lec 2** — Machine Learning Lifecycle
+- 🔭 Data preprocessing and normalization
+- 🔭 Data visualization
+- 🔭 Versioning, environments & orchestration (Git, virtualenv, Docker, Kubernetes)
+- 🔭 Quantization
+- 🔭 Reproducibility & experiment tracking
 
 ---
 
-> *Trimester 2 · MTech AI · IIT Jodhpur · github.com/rpaut03l/TS-02*
+> *github.com/rpaut03l/TS-02*
