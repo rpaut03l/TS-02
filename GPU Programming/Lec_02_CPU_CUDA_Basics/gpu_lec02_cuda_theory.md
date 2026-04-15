@@ -303,9 +303,9 @@ Inside a thread block, threads are further grouped into **warps of 32 threads**.
  Warp 0: t0  t1  t2  t3  ... t31   ─┐
  Warp 1: t32 t33 t34 ... t63        │  each warp
  Warp 2: t64 ... t95                │  executes the
- Warp 3: t96 ... t127                │  SAME instruction
- ...                                 │  on all 32 threads
- Warp 7: t224 ... t255              ─┘  in lockstep
+ Warp 3: t96 ... t127               │  SAME instruction
+ ...                                │  on all 32 threads
+ Warp 7: t224 ... t255             ─┘  in lockstep
 ```
 
 ### 👶 Easy Story — the 32-seat bus
@@ -427,22 +427,22 @@ A GPU has **many kinds of memory**, each a different size, speed, and purpose.
 ```
 ┌────────────────────────────────────────────────────────────────┐
 │  per-thread      REGISTERS       ~32 32-bit regs per thread    │
-│                  ── 1 cycle ──   ~KB per SM                     │
+│                  ── 1 cycle ──   ~KB per SM                    │
 ├────────────────────────────────────────────────────────────────┤
 │  per-block       SHARED MEMORY   48-164 KB per SM              │
-│                  ── ~30 cycles ──  programmer-managed cache     │
+│                  ── ~30 cycles ──  programmer-managed cache    │
 │                  L1 CACHE        combined with shared memory   │
 ├────────────────────────────────────────────────────────────────┤
 │  per-device      L2 CACHE        ~40-50 MB (one copy per GPU)  │
-│                  ── ~200 cycles ──                              │
+│                  ── ~200 cycles ──                             │
 ├────────────────────────────────────────────────────────────────┤
-│  per-device      GLOBAL (HBM)    16-80 GB                       │
-│                  ── ~400 cycles ──  ~1-3 TB/s bandwidth         │
-│                  CONSTANT        64 KB, cached, read-only       │
-│                  TEXTURE         cached, 2D/3D optimized        │
+│  per-device      GLOBAL (HBM)    16-80 GB                      │
+│                  ── ~400 cycles ──  ~1-3 TB/s bandwidth        │
+│                  CONSTANT        64 KB, cached, read-only      │
+│                  TEXTURE         cached, 2D/3D optimized       │
 ├────────────────────────────────────────────────────────────────┤
 │  over PCIe       HOST MEMORY     (system DRAM, your OS's RAM)  │
-│                  ── milliseconds ── 6-64 GB/s                   │
+│                  ── milliseconds ── 6-64 GB/s                  │
 └────────────────────────────────────────────────────────────────┘
 ```
 
@@ -574,33 +574,33 @@ Start high, drop a level when you need more control.
 ╔══════════════════════════════════════════════════════════════╗
 ║  GPU LEC 2 ONE-LINERS                                        ║
 ╠══════════════════════════════════════════════════════════════╣
-║  ISA = the language the CPU speaks (x86, ARM, RISC-V)       ║
-║  3 instruction types: data transfer / arithmetic / control  ║
-║  CPI: cycles per instruction                                ║
-║  Exec time = IC × CPI × T                                   ║
+║  ISA = the language the CPU speaks (x86, ARM, RISC-V)        ║
+║  3 instruction types: data transfer / arithmetic / control   ║
+║  CPI: cycles per instruction                                 ║
+║  Exec time = IC × CPI × T                                    ║
 ║                                                              ║
-║  CUDA hierarchy: thread → block → grid                      ║
-║  Thread: 1 worker = 1 output element                        ║
+║  CUDA hierarchy: thread → block → grid                       ║
+║  Thread: 1 worker = 1 output element                         ║
 ║  Block:  shares memory + synchronization                     ║
-║  Grid:   all blocks of one kernel launch                    ║
+║  Grid:   all blocks of one kernel launch                     ║
 ║                                                              ║
-║  Warp = 32 threads executing the same instruction          ║
-║  Warp divergence = branch taken by some threads             ║
-║                    → paths serialized → slower              ║
-║  Block size MUST be a multiple of 32                        ║
+║  Warp = 32 threads executing the same instruction            ║
+║  Warp divergence = branch taken by some threads              ║
+║                    → paths serialized → slower               ║
+║  Block size MUST be a multiple of 32                         ║
 ║                                                              ║
-║  SM = Streaming Multiprocessor (unit of parallelism)        ║
-║  SIMT = per-thread programming model over SIMD hardware     ║
+║  SM = Streaming Multiprocessor (unit of parallelism)         ║
+║  SIMT = per-thread programming model over SIMD hardware      ║
 ║                                                              ║
 ║  Memory hierarchy (fast → slow):                             ║
-║    registers → shared → L1 → L2 → global → (PCIe) → host    ║
-║  Coalesced access: thread i reads a[i] → 1 transaction      ║
-║  Scattered access: thread i reads a[perm[i]] → 32 txns     ║
+║    registers → shared → L1 → L2 → global → (PCIe) → host     ║
+║  Coalesced access: thread i reads a[i] → 1 transaction       ║
+║  Scattered access: thread i reads a[perm[i]] → 32 txns       ║
 ║                                                              ║
-║  Workload lifecycle: host → alloc → H2D → launch →          ║
-║    compute → D2H → back on host                             ║
+║  Workload lifecycle: host → alloc → H2D → launch →           ║
+║    compute → D2H → back on host                              ║
 ║                                                              ║
-║  CUDA = Compute Unified Device Architecture                 ║
+║  CUDA = Compute Unified Device Architecture                  ║
 ╚══════════════════════════════════════════════════════════════╝
 ```
 
