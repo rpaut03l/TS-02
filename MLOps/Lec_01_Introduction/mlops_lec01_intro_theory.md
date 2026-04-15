@@ -38,7 +38,7 @@ Now imagine a **real car** sold to a million people. Engineers spend 95% of thei
 
 **ML is the same.** The algorithm (the idea) is the smallest, most fun piece. Everything around it — data, plumbing, deployment, monitoring, retraining — is where the real work is. This course is about that **everything around it**.
 
-### The Professor's Summary
+### The core insight
 > ❑ ML algorithms is the **less problematic part**
 > ❑ The **hard part** is how to make algorithms work with other parts to solve real-world problems
 
@@ -54,6 +54,8 @@ Now imagine a **real car** sold to a million people. Engineers spend 95% of thei
 ```
 
 An ML **algorithm** is just one of five boxes. An ML **system** is all five working together.
+
+> 🧠 **Need a refresher on the "Algorithms" box?** The companion repo [TS-01 / ML](https://github.com/rpaut03l/TS-01/tree/main/ML) has full theory + worked math + runnable practice code for every major algorithm (Regression, Decision Trees, Random Forest, K-NN, LDA, SVM, Neural Networks, Deep Learning, Parameter Estimation, Bayesian Decision Theory, and more). If a name in this lecture is unfamiliar, start there.
 
 [↑ Back to Top](#-mlops-lec-1--introduction-theory)
 

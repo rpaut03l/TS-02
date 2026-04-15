@@ -309,6 +309,8 @@ The pipeline is the important thing. The trained model is just one snapshot the 
 
 You version control the **recipe** (pipeline). The binary (model weights) is something the recipe produces on demand. If you ever need to rebuild the model — for a new dataset, a new library version, a bug fix — you run the pipeline, not tweak the binary.
 
+> 📦 **Real-world example:** [rptl_gn_mlops (mlops-pipeline branch)](https://github.com/rpaut03l/rptl_gn_mlops/tree/mlops-pipeline) is a live repository that implements exactly this — a CI/CD pipeline where the ML training and deployment logic lives as code, Kubernetes handles the runtime, and every pull request [kicks off a full pipeline run](https://github.com/rpaut03l/rptl_gn_mlops/actions/runs/19781350058) that produces a versioned model artifact.
+
 ### What a pipeline does at each run
 - Pulls the latest data from the source
 - Cleans and transforms it
