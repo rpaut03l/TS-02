@@ -1,4 +1,4 @@
-# ⚡ GPU Programming
+#  GPU Programming
 
 ### *How to make a computer do a million things at the same time — notes, code, and practice*
 
@@ -8,7 +8,7 @@
 
 ---
 
-## 🧠 What even is a GPU?
+##  What even is a GPU?
 
 ### 👶 Easy Story
 Imagine a **kitchen** that has to cook dinner for 1000 people.
