@@ -41,4 +41,13 @@ All three phases, together, are the **Machine Learning Lifecycle**.
 
 ---
 
+## 🔗 Related reading for this lecture
+
+- **[Machine Learning Workflows & ML Models](https://www.rohitpatel.in/2025/11/machine-learning-workflows-ml-models.html)** — an end-to-end walkthrough of the ML workflow (load → clean → EDA → feature eng → train → validate → deploy → serve) with memory aids and pandas / scikit-learn snippets. Maps very cleanly onto the 3-phase lifecycle in this lecture's theory file.
+- **[rptl_gn_mlops — `mlops-pipeline` branch](https://github.com/rpaut03l/rptl_gn_mlops/tree/mlops-pipeline)** — a live project implementing an **automated CI/CD pipeline that combines Kubernetes deployment with ML-based microservice performance tuning** on a multi-node cluster. This is exactly what the "Training Pipelines as CODE, Models as BINARIES" analogy in §9 of the theory file looks like when it's real.
+- **[GitHub Actions run — CI/CD with MLOps Pipeline (passing, 4m 31s)](https://github.com/rpaut03l/rptl_gn_mlops/actions/runs/19781350058)** — a specific successful run of that pipeline, triggered by a pull request, producing an `ml-model` artifact and a `pipeline-results` artifact. A concrete example of "every commit re-runs the whole recipe and versions the output."
+- **[TS-01 / ML — algorithm fundamentals](https://github.com/rpaut03l/TS-01/tree/main/ML)** — the companion repo's ML track. If you need a refresher on a specific algorithm (Regression, Random Forest, Neural Networks, etc.) while working through the feature-engineering / hyperparameter sections, that's your one-stop reference.
+
+---
+
 > *MLOps · Lec 2 · github.com/rpaut03l/TS-02*

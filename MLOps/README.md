@@ -61,4 +61,21 @@ Planned topics in this track (more folders will be added over time):
 
 ---
 
+## 🔗 External Resources
+
+Extra reading and hands-on material that pair well with this folder.
+
+### 📝 Blog posts
+- **[AWS Certified Machine Learning Engineer — Study Guide](https://www.rohitpatel.in/2025/11/aws-certified-machine-learning-engineer.html)** — a structured study guide for the AWS ML Engineer exam covering data prep, model development, deployment, and monitoring/security. Useful if you want to map the MLOps concepts here to a cloud-vendor-specific exam track (SageMaker endpoints, Model Monitor drift types, deployment decision trees, hyperparameter tuning strategies).
+- **[Machine Learning Workflows & ML Models](https://www.rohitpatel.in/2025/11/machine-learning-workflows-ml-models.html)** — walks through the end-to-end ML workflow (load → clean → EDA → feature eng → train → validate → deploy → serve) with memory aids and runnable pandas / scikit-learn examples. Pairs directly with the 3-phase lifecycle in [Lec 2](Lec_02_ML_Lifecycle/README.md).
+
+### 🛠️ Hands-on project repo
+- **[rptl_gn_mlops — `mlops-pipeline` branch](https://github.com/rpaut03l/rptl_gn_mlops/tree/mlops-pipeline)** — a live example project that implements an automated **CI/CD pipeline combining Kubernetes deployment with ML-based microservice performance tuning** on a multi-node cluster. This is the "Lec 2 theory → real code" bridge: training pipelines as code, model artifacts versioned in CI, deployment automated on merge.
+- **[GitHub Actions run — CI/CD with MLOps Pipeline (passing)](https://github.com/rpaut03l/rptl_gn_mlops/actions/runs/19781350058)** — a specific successful workflow run (≈4m 31s) triggered by a pull request to the `mlops-pipeline` branch, producing an `ml-model` artifact and a `pipeline-results` artifact. Good example of what "automated training pipeline + artifact tracking" looks like in practice.
+
+### 🧠 Prerequisite ML fundamentals
+- **[TS-01 / ML — algorithm fundamentals](https://github.com/rpaut03l/TS-01/tree/main/ML)** — the companion repo's ML track with theory + worked numerical problems + runnable practice code for the core algorithms (Regression, Decision Trees, Random Forest, K-NN, LDA, SVM/Kernels, PCA, Clustering, Neural Networks, Deep Learning, Parameter Estimation, Bayesian Decision Theory, and more). If a concept in this MLOps folder references an ML technique you want to refresh, that's the place to go.
+
+---
+
 > *github.com/rpaut03l/TS-02*
