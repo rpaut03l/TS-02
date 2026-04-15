@@ -46,10 +46,10 @@ Now imagine a **real car** sold to a million people. Engineers spend 95% of thei
 ```
 ┌────────────────────────────────────────────────────┐
 │ 🖥️  INTERFACE:       APIs, Dashboards              │
-│ 📊  DATA:            Datasets, data pipelines       │
-│ 🧠  ALGORITHMS:      The ML model itself            │
-│ 🏗️  INFRASTRUCTURE:  CI/CD, version control, cloud  │
-│ 💻  HARDWARE:        GPUs, edge devices, servers    │
+│ 📊  DATA:            Datasets, data pipelines      │
+│ 🧠  ALGORITHMS:      The ML model itself           │
+│ 🏗️  INFRASTRUCTURE:  CI/CD, version control, cloud │
+│ 💻  HARDWARE:        GPUs, edge devices, servers   │
 └────────────────────────────────────────────────────┘
 ```
 
@@ -95,19 +95,19 @@ With MLOps:
 ┌────────────────────────────────────────────────────┐
 │                   ML SYSTEM                        │
 │                                                    │
-│   [Interface]  ← users, APIs, dashboards          │
+│   [Interface]  ← users, APIs, dashboards           │
 │       ▲                                            │
 │       │                                            │
-│   [Algorithms] ← your model, training code        │
+│   [Algorithms] ← your model, training code         │
 │       ▲                                            │
 │       │                                            │
-│   [Data]       ← collection, cleaning, pipelines  │
+│   [Data]       ← collection, cleaning, pipelines   │
 │       ▲                                            │
 │       │                                            │
-│  [Infrastructure] ← CI/CD, version control, K8s   │
+│  [Infrastructure] ← CI/CD, version control, K8s    │
 │       ▲                                            │
 │       │                                            │
-│   [Hardware]   ← GPUs, TPUs, edge, cloud          │
+│   [Hardware]   ← GPUs, TPUs, edge, cloud           │
 └────────────────────────────────────────────────────┘
 ```
 
@@ -161,18 +161,18 @@ The four requirements an ML system must meet:
 
 ```
 ┌──────────────────┬───────────────────────┬────────────────────────┐
-│ DIMENSION        │ RESEARCH              │ PRODUCTION              │
+│ DIMENSION        │ RESEARCH              │ PRODUCTION             │
 ├──────────────────┼───────────────────────┼────────────────────────┤
 │ Objective        │ Model performance     │ Different stakeholders │
-│                  │ (e.g. accuracy)       │ want different things   │
-│ Computational    │ Fast training, high   │ Fast inference,         │
-│ priority         │ throughput            │ low latency             │
-│ Data             │ Static, clean,        │ Constantly shifting,    │
-│                  │ benchmarked           │ dirty, incomplete       │
-│ Fairness         │ Often an afterthought │ Must be considered      │
-│                  │                       │ (legal, ethical)        │
-│ Interpretability │ Nice-to-have          │ Often required          │
-│                  │                       │ (audit, debugging)      │
+│                  │ (e.g. accuracy)       │ want different things  │
+│ Computational    │ Fast training, high   │ Fast inference,        │
+│ priority         │ throughput            │ low latency            │
+│ Data             │ Static, clean,        │ Constantly shifting,   │
+│                  │ benchmarked           │ dirty, incomplete      │
+│ Fairness         │ Often an afterthought │ Must be considered     │
+│                  │                       │ (legal, ethical)       │
+│ Interpretability │ Nice-to-have          │ Often required         │
+│                  │                       │ (audit, debugging)     │
 └──────────────────┴───────────────────────┴────────────────────────┘
 ```
 
@@ -349,7 +349,7 @@ From the slides:
 ║  MLOps = culture unifying ML Dev + Ops                       ║
 ║  ML system = Interface + Data + Algorithms + Infra + HW      ║
 ║  ML Design requirements: Reliable · Scalable · Maintainable  ║
-║                          · Adaptable  (RSMA)                ║
+║                          · Adaptable  (RSMA)                 ║
 ║  Research optimizes one metric, Production balances many     ║
 ║  Traditional SW: code separate from data                     ║
 ║  ML system: code + data + model tangled together             ║
