@@ -182,7 +182,7 @@ Modern AI runs on a **zoo** of specialized chips, each one good at a different s
 ┌──────────┬────────────────────────────────────────────────────┐
 │ Processor│ Primary job                                        │
 ├──────────┼────────────────────────────────────────────────────┤
-│ CPU      │ Orchestration · preprocessing · OS · "glue"         │
+│ CPU      │ Orchestration · preprocessing · OS · "glue"        │
 │ GPU      │ Training & deep learning · general AI workhorse    │
 │ TPU      │ Google-scale tensor workloads (training + infer.)  │
 │ NPU      │ Edge / mobile / on-device inference                │
@@ -215,21 +215,21 @@ Here's how all 6 of the "modern AI" processors line up in a real deployment:
 │        ▼                                                           │
 │     ┌─────┐      schedule + preprocess                             │
 │     │ CPU │─────────────────────────────────────────────┐          │
-│     └─────┘                                              │          │
-│        │                                                 │          │
-│        │                                                 │          │
-│        ▼                                                 │          │
+│     └─────┘                                             │          │
+│        │                                                │          │
+│        │                                                │          │
+│        ▼                                                │          │
 │    ┌────────────────────────────────────────────────┐   │          │
-│    │  Choose the right accelerator for the job…      │   │          │
+│    │  Choose the right accelerator for the job…     │   │          │
 │    └────────────────────────────────────────────────┘   │          │
-│        │                                                 │          │
-│        ├── heavy training / dense matmul  →  GPU / TPU   │          │
-│        ├── real-time LLM tokens           →  LPU         │          │
-│        ├── on-device inference            →  NPU         │          │
-│        └── network + security offload     →  DPU         │          │
-│                                                          │          │
+│        │                                                │          │
+│        ├── heavy training / dense matmul  →  GPU / TPU  │          │
+│        ├── real-time LLM tokens           →  LPU        │          │
+│        ├── on-device inference            →  NPU        │          │
+│        └── network + security offload     →  DPU        │          │
+│                                                         │          │
 │    After compute, result goes back → CPU → user         │          │
-│                                                          │          │
+│                                                         │          │
 └────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -252,7 +252,7 @@ GPUs were invented in the late 1990s to draw polygons fast for video games. Each
 ┌──────────────────────────────────────────────────┐
 │                    GPU                           │
 │                                                  │
-│  [SM 0]  [SM 1]  [SM 2]  …  [SM 107]              │
+│  [SM 0]  [SM 1]  [SM 2]  …  [SM 107]             │
 │   │        │        │           │                │
 │   └────────┴────────┴───────────┘                │
 │                │                                 │
@@ -260,7 +260,7 @@ GPUs were invented in the late 1990s to draw polygons fast for video games. Each
 │                │                                 │
 │         HBM / GDDR memory (16-80 GB)             │
 │                                                  │
-│  Each SM = many parallel cores + its own L1,    │
+│  Each SM = many parallel cores + its own L1,     │
 │            shared memory, and register file      │
 └──────────────────────────────────────────────────┘
 ```
@@ -477,28 +477,28 @@ Key ideas to remember:
 ╔══════════════════════════════════════════════════════════════╗
 ║  GPU LEC 1 ONE-LINERS                                        ║
 ╠══════════════════════════════════════════════════════════════╣
-║  CPU = few smart cores, orchestration & glue                ║
-║  GPU = thousands of simple cores, training + inference      ║
-║  TPU = ASIC systolic array, Google-scale tensor workloads   ║
-║  NPU = low-power on-device AI (phones, edge)                ║
-║  LPU = zero-cache-miss SRAM, real-time LLM serving (Groq)   ║
-║  DPU = SmartNIC offload: network + storage + security       ║
-║  FPGA = reconfigurable logic (custom accelerators)          ║
-║                                                             ║
-║  GPUs hide memory latency with PARALLELISM, not caches      ║
-║  Memory wall: 1 DRAM fetch ≈ 200 arithmetic ops             ║
-║  Shared memory = programmer-managed cache on a GPU SM       ║
-║  HBM → 10-30× more bandwidth than CPU DRAM                  ║
-║                                                             ║
-║  Amdahl: Speedup = 1 / ((1−P) + P/N)                        ║
-║  90% parallel → max 10× speedup no matter how many cores    ║
-║                                                             ║
-║  Host = CPU,  Device = GPU                                  ║
-║  Kernel = a function that runs on the GPU                   ║
-║  Data flows: host → PCIe → device → compute → back → host   ║
-║                                                             ║
-║  Choose processor on: latency · parallelism · power ·       ║
-║                       cost · scale                          ║
+║  CPU = few smart cores, orchestration & glue                 ║
+║  GPU = thousands of simple cores, training + inference       ║
+║  TPU = ASIC systolic array, Google-scale tensor workloads    ║ 
+║  NPU = low-power on-device AI (phones, edge)                 ║
+║  LPU = zero-cache-miss SRAM, real-time LLM serving (Groq)    ║
+║  DPU = SmartNIC offload: network + storage + security        ║
+║  FPGA = reconfigurable logic (custom accelerators)           ║
+║                                                              ║
+║  GPUs hide memory latency with PARALLELISM, not caches       ║
+║  Memory wall: 1 DRAM fetch ≈ 200 arithmetic ops              ║
+║  Shared memory = programmer-managed cache on a GPU SM        ║
+║  HBM → 10-30× more bandwidth than CPU DRAM                   ║
+║                                                              ║
+║  Amdahl: Speedup = 1 / ((1−P) + P/N)                         ║
+║  90% parallel → max 10× speedup no matter how many cores     ║
+║                                                              ║
+║  Host = CPU,  Device = GPU                                   ║
+║  Kernel = a function that runs on the GPU                    ║
+║  Data flows: host → PCIe → device → compute → back → host    ║
+║                                                              ║
+║  Choose processor on: latency · parallelism · power ·        ║
+║                       cost · scale                           ║
 ╚══════════════════════════════════════════════════════════════╝
 ```
 
