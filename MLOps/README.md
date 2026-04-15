@@ -33,7 +33,7 @@ Each lecture folder has the same **trio** of files:
 
 | File | Purpose |
 |---|---|
-| `*_theory.md` | **Concepts explained like to a 5-year-old** — easy stories, analogies, boxed diagrams, then the technical details |
+| `*_theory.md` | **Concepts explained like a kid** — easy stories, analogies, boxed diagrams, then the technical details |
 | `*_code.md` | **Scikit-learn (and friends) code** — minimal, runnable, well-commented examples of every concept from the theory |
 | `*_practice.md` | **Kaggle / Google Colab ready** — longer practice exercises you can copy straight into a notebook |
 
