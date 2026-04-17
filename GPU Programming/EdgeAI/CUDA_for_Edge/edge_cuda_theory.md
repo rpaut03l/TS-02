@@ -82,17 +82,17 @@ pack"** blessed by NVIDIA.
 
 ```
  ┌────────────────────────────────────────────────────────────────┐
- │                       JetPack 6 SDK                             │
+ │                       JetPack 6 SDK                            │
  ├────────────────────────────────────────────────────────────────┤
- │ 1. L4T  (Linux for Tegra)      → Ubuntu-based OS image          │
- │ 2. CUDA toolkit                → the language + runtime         │
- │ 3. cuDNN                       → deep-learning kernel library    │
- │ 4. TensorRT                    → inference optimizer + runtime   │
- │ 5. DeepStream                  → video AI pipeline SDK           │
- │ 6. VisionWorks / VPI           → image-processing primitives     │
- │ 7. Multimedia API              → camera, encode, decode          │
- │ 8. NSight tools                → profilers (nsys / ncu / graph)  │
- │ 9. Developer tools             → gcc, gdb, Python, OpenCV        │
+ │ 1. L4T  (Linux for Tegra)      → Ubuntu-based OS image         │
+ │ 2. CUDA toolkit                → the language + runtime        │
+ │ 3. cuDNN                       → deep-learning kernel library  │
+ │ 4. TensorRT                    → inference optimizer + runtime │
+ │ 5. DeepStream                  → video AI pipeline SDK         │
+ │ 6. VisionWorks / VPI           → image-processing primitives   │
+ │ 7. Multimedia API              → camera, encode, decode        │
+ │ 8. NSight tools                → profilers (nsys / ncu / graph)│
+ │ 9. Developer tools             → gcc, gdb, Python, OpenCV      │
  └────────────────────────────────────────────────────────────────┘
 ```
 
@@ -124,19 +124,19 @@ the kitchen to the kitchen" is silly.
 
 ```
  ┌─────────────────────────────────┬────────────────────────────────┐
- │ Allocator                        │ What it actually does           │
+ │ Allocator                       │ What it actually does          │
  ├─────────────────────────────────┼────────────────────────────────┤
- │ cudaMalloc (pure device)         │ Allocates in the LPDDR pool,    │
- │                                  │ only the GPU sees it.           │
+ │ cudaMalloc (pure device)        │ Allocates in the LPDDR pool,   │
+ │                                 │ only the GPU sees it.          │
  ├─────────────────────────────────┼────────────────────────────────┤
- │ cudaMallocHost / cudaHostAlloc   │ Allocates pinned CPU memory.    │
- │ (pinned/zero-copy)               │ GPU accesses it over the same   │
- │                                  │ memory bus (no copy).           │
+ │ cudaMallocHost / cudaHostAlloc  │ Allocates pinned CPU memory.   │
+ │ (pinned/zero-copy)              │ GPU accesses it over the same  │
+ │                                 │ memory bus (no copy).          │
  ├─────────────────────────────────┼────────────────────────────────┤
- │ cudaMallocManaged (UVM)          │ One pointer works on both CPU   │
- │                                  │ and GPU. On Tegra it's backed   │
- │                                  │ by the shared LPDDR pool — no   │
- │                                  │ page-migration cost.            │
+ │ cudaMallocManaged (UVM)         │ One pointer works on both CPU  │
+ │                                 │ and GPU. On Tegra it's backed  │
+ │                                 │ by the shared LPDDR pool — no  │
+ │                                 │ page-migration cost.           │
  └─────────────────────────────────┴────────────────────────────────┘
 ```
 
@@ -158,18 +158,18 @@ DRAM, that's a wasted trip.
 
 ### A mental picture
 ```
-  ┌──────────────────────────────────────┐
-  │          TEGRA SoC  (Orin)           │
-  │  ┌──────────┐           ┌──────────┐ │
-  │  │  ARM CPU │ ←─ L3 ──→ │   GPU    │ │
-  │  └──────────┘           └──────────┘ │
-  │        │                     │        │
-  │        └───── SoC fabric ────┘        │
-  │                 │                      │
-  │         ┌───────┴────────┐             │
-  │         │  LPDDR5 (shared) │ ◄─ one pool
+  ┌──────────────────────────────────────────┐
+  │          TEGRA SoC  (Orin)               │
+  │  ┌──────────┐           ┌──────────┐     │
+  │  │  ARM CPU │ ←─ L3 ──→ │   GPU    │     │
+  │  └──────────┘           └──────────┘     │
+  │        │                     │           │
+  │        └───── SoC fabric ────┘           │
+  │                 │                        │
+  │         ┌───────┴──────────┐             │
+  │         │  LPDDR5 (shared) │ ◄─ one pool │
   │         └──────────────────┘             │
-  └──────────────────────────────────────┘
+  └──────────────────────────────────────────┘
 ```
 
 [↑ Back to Top](#-edgeai--cuda-for-edge--theory)
@@ -201,7 +201,7 @@ file. Load it — the same model now runs at **120 FPS**. Same accuracy,
   │ 1. TRAIN     │ -> │ 2. EXPORT  │ -> │ 3. BUILD     │ -> │ 4. RUN   │
   │ PyTorch / TF │    │ ONNX file  │    │ trtexec or   │    │ Python or│
   │              │    │            │    │ Python API   │    │ C++ API  │
-  │ .pth / .h5    │    │ .onnx      │    │ .engine plan │    │ inference│
+  │ .pth / .h5   │    │ .onnx      │    │ .engine plan │    │ inference│
   └──────────────┘    └────────────┘    └──────────────┘    └──────────┘
 ```
 
