@@ -139,7 +139,7 @@ Planned topics in this sub-track (I'll add more over time):
 
 ---
 
-## 🎓 Where this fits in my MTech study plan
+## 🎓 Where this fits in the study plan
 
 In the GPU Programming course, I've learned how data-center GPUs do massive parallel work. 
 Edge AI is the "other half" of the same story — the *same* GPU tricks, pushed into
