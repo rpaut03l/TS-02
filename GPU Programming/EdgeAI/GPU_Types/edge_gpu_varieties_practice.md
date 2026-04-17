@@ -29,7 +29,7 @@ By the end of this notebook you will have a **reusable tool** that:
 ```python
 EDGE_GPUS = [
     # family,         name,                    TDP_W, INT8_TOPS, mem_GB, mem_BW_GBps
-    ("Mobile-SoC",   "Apple A17 Pro GPU",        5,        35,    8,       51.2),
+    ("Mobile-SoC",   "Apple A17 Pro GPU",         5,        35,    8,       51.2),
     ("Mobile-SoC",   "Snapdragon 8G3 Adreno 750", 5,        45,    8,       64.0),
     ("iGPU",         "Intel Iris Xe (Gen12)",    15,         4,    8,       51.2),
     ("iGPU",         "AMD Radeon 780M (RDNA3)",  15,         8,    8,       76.8),
