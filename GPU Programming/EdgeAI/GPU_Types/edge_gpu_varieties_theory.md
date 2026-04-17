@@ -176,15 +176,15 @@ at industrial temperatures.
 ### The lineup
 
 ```
- ┌───────────────────────┬────────┬─────────┬──────────┬──────────────┐
- │ GPU                   │ Power  │ Memory  │ INT8 TOPS│ Role         │
- ├───────────────────────┼────────┼─────────┼──────────┼──────────────┤
- │ NVIDIA Tesla T4       │  70 W  │ 16 GB   │   130    │ Inference    │
+ ┌────────────────────────┬────────┬─────────┬──────────┬──────────────┐
+ │ GPU                    │ Power  │ Memory  │ INT8 TOPS│ Role         │
+ ├────────────────────────┼────────┼─────────┼──────────┼──────────────┤
+ │ NVIDIA Tesla T4        │  70 W  │ 16 GB   │   130    │ Inference    │
  │ NVIDIA RTX A2000       │  70 W  │ 12 GB   │    40    │ Workstation  │
  │ NVIDIA RTX 4000 Ada SFF│  70 W  │ 20 GB   │   153    │ Edge server  │
  │ NVIDIA L4              │  72 W  │ 24 GB   │   242    │ Video AI     │
  │ NVIDIA RTX 6000 Ada    │ 300 W  │ 48 GB   │ 1,457    │ Edge DC      │
- └───────────────────────┴────────┴─────────┴──────────┴──────────────┘
+ └────────────────────────┴────────┴─────────┴──────────┴──────────────┘
 ```
 
 ### When to use discrete edge
@@ -226,15 +226,15 @@ been using it without noticing. For **light Edge AI** it's often
 ### The lineup
 
 ```
- ┌───────────────────────────────────┬───────┬─────────┬────────────────┐
- │ iGPU                              │ Power │ INT8 TOPS│ Typical host  │
- ├───────────────────────────────────┼───────┼─────────┼────────────────┤
- │ Intel UHD Graphics (older)        │  5 W  │   ~1    │ NUC, thin PC   │
- │ Intel Iris Xe (Gen12)             │ 15 W  │   ~4    │ Laptops        │
- │ Intel Arc iGPU (Meteor Lake+)     │ 18 W  │   ~11   │ "Core Ultra"   │
- │ AMD Radeon Vega iGPU (Ryzen APUs) │ 10 W  │   ~2    │ Mini-PC        │
- │ AMD Radeon 780M (RDNA3)           │ 15 W  │   ~8    │ Ryzen 7040+    │
- └───────────────────────────────────┴───────┴─────────┴────────────────┘
+ ┌───────────────────────────────────┬───────┬──────────┬─────────────────┐
+ │ iGPU                              │ Power │ INT8 TOPS│ Typical host    │
+ ├───────────────────────────────────┼───────┼──────────┼─────────────────┤
+ │ Intel UHD Graphics (older)        │  5 W  │   ~1     │ NUC, thin PC    │
+ │ Intel Iris Xe (Gen12)             │ 15 W  │   ~4     │ Laptops         │
+ │ Intel Arc iGPU (Meteor Lake+)     │ 18 W  │   ~11    │ "Core Ultra"    │
+ │ AMD Radeon Vega iGPU (Ryzen APUs) │ 10 W  │   ~2     │ Mini-PC         │
+ │ AMD Radeon 780M (RDNA3)           │ 15 W  │   ~8     │ Ryzen 7040+     │
+ └───────────────────────────────────┴───────┴──────────┴─────────────────┘
 ```
 
 ### Use cases
@@ -277,12 +277,12 @@ edge AI accelerator** when you use the right APIs.
  │ Mobile GPU               │ Typical  │ INT8 TOPS  │ Example SoC / Phone│
  │                          │ power    │ (estimate) │                    │
  ├──────────────────────────┼──────────┼────────────┼────────────────────┤
- │ Qualcomm Adreno 750       │ 2 – 5 W │   ~45      │ Snapdragon 8 Gen 3 │
- │ Qualcomm Adreno 730       │ 2 – 5 W │   ~26      │ Snapdragon 8 Gen 2 │
- │ ARM Mali-G720 Immortalis │ 1 – 4 W │   ~32      │ MediaTek Dim. 9300 │
- │ ARM Mali-G78               │ 1 – 4 W │   ~18      │ Dimensity 9000     │
- │ Apple GPU (A17 Pro)        │ 2 – 5 W │   ~35      │ iPhone 15 Pro      │
- │ Samsung Xclipse 940         │ 2 – 5 W │   ~26      │ Exynos 2400        │
+ │ Qualcomm Adreno 750      │ 2 – 5 W  │   ~45      │ Snapdragon 8 Gen 3 │
+ │ Qualcomm Adreno 730      │ 2 – 5 W  │   ~26      │ Snapdragon 8 Gen 2 │
+ │ ARM Mali-G720 Immortalis │ 1 – 4 W  │   ~32      │ MediaTek Dim. 9300 │
+ │ ARM Mali-G78             │ 1 – 4 W  │   ~18      │ Dimensity 9000     │
+ │ Apple GPU (A17 Pro)      │ 2 – 5 W  │   ~35      │ iPhone 15 Pro      │
+ │ Samsung Xclipse 940      │ 2 – 5 W  │   ~26      │ Exynos 2400        │
  └──────────────────────────┴──────────┴────────────┴────────────────────┘
 ```
 
@@ -315,19 +315,19 @@ Every edge-GPU datasheet hands you roughly the same 8 numbers. Here's
 what each one really means.
 
 ```
- ┌──────────────────┬─────────────────────────────────────────────────┐
- │ Number           │ What it really tells you                        │
- ├──────────────────┼─────────────────────────────────────────────────┤
- │ CUDA cores       │ "How many simple workers?" More = more parallel │
- │ Tensor cores     │ "How many matrix-multiply helpers?" Key for AI  │
- │ FP32 TFLOPS      │ Peak speed for general-purpose float math       │
+ ┌───────────────────┬─────────────────────────────────────────────────┐
+ │ Number            │ What it really tells you                        │
+ ├───────────────────┼─────────────────────────────────────────────────┤
+ │ CUDA cores        │ "How many simple workers?" More = more parallel │
+ │ Tensor cores      │ "How many matrix-multiply helpers?" Key for AI  │
+ │ FP32 TFLOPS       │ Peak speed for general-purpose float math       │
  │ FP16 / BF16 TFLOPs│ Same, at half precision (usually 2× FP32)       │
- │ INT8 TOPS        │ Peak integer speed — the "AI inference" number  │
- │ Sparse INT8 TOPS │ INT8 with 2:4 structured sparsity (2× INT8)     │
- │ Memory capacity  │ How big a model you can load                    │
- │ Memory bandwidth │ How fast the GPU can fetch weights from memory  │
- │ TDP (watts)      │ Power budget — heat you must remove             │
- └──────────────────┴─────────────────────────────────────────────────┘
+ │ INT8 TOPS         │ Peak integer speed — the "AI inference" number  │
+ │ Sparse INT8 TOPS  │ INT8 with 2:4 structured sparsity (2× INT8)     │
+ │ Memory capacity   │ How big a model you can load                    │
+ │ Memory bandwidth  │ How fast the GPU can fetch weights from memory  │
+ │ TDP (watts)       │ Power budget — heat you must remove             │
+ └───────────────────┴─────────────────────────────────────────────────┘
 ```
 
 ### Rules of thumb
@@ -361,18 +361,18 @@ what each one really means.
            └─┬─────────────────────────┘
              │ YES                       NO
              ▼                            ▼
-      ┌─────────────┐                Do I have a
+      ┌──────────────┐                Do I have a
       │ Use MOBILE   │                PCIe slot and
       │ SoC GPU      │                a 70–150 W power
       │ (Adreno,     │                budget?
       │  Mali, ANE)  │                   │
-      └─────────────┘                    │
+      └──────────────┘                   │
                                 ┌────────┴─────────┐
                                 │ YES              │ NO
                                 ▼                  ▼
                          Use DISCRETE       Is there a CPU
                          EDGE GPU           already in the box?
-                         (T4 / RTX 4000 Ada)       │
+                         (T4 / RTX 4000 Ada)        │
                                                     │
                                               ┌─────┴─────┐
                                               │ YES       │ NO
