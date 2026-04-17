@@ -78,7 +78,7 @@ Each topic folder has the same **trio** of files:
 
 | File | Purpose |
 |---|---|
-| `*_theory.md` | **5-year-old story first**, then deeper technical depth. Mnemonic → TOC → numbered sections with boxed ASCII diagrams → cheat sheet. |
+| `*_theory.md` | **easy to understand type story/explanations first**, then deeper technical depth. Mnemonic → TOC → numbered sections with boxed ASCII diagrams → cheat sheet. |
 | `*_code.md` | **Runnable code** — Python (TFLite, ONNX Runtime, TensorRT) and a few CUDA snippets. Every concept from theory gets a snippet. |
 | `*_practice.md` | **Google Colab or Jetson ready** — paste cells, run, see the edge inference actually work. |
 
