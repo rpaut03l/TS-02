@@ -5,9 +5,6 @@
 > [EdgeAI/README.md](README.md). Same folder style as the existing
 > four sub-tracks (README + `_theory.md` + `_code.md` + `_practice.md`).
 
-Target branch: continue on `claude/edge-ai-readme-JA9iA`
-(or a fresh branch — user's call).
-
 ---
 
 ## 🔭 1. Model Compression
