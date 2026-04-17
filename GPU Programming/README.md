@@ -35,6 +35,7 @@ Each GPU core is much simpler than a CPU core — but a GPU has *thousands* of t
 |---|---|---|
 | 1 | **Introduction to GPUs** — The 6 processors powering modern AI (CPU / GPU / TPU / NPU / LPU / DPU) + FPGA, memory hierarchy, Amdahl's Law, why GPUs for AI | [Lec_01_Introduction/](Lec_01_Introduction/) |
 | 2 | **CPU Basics · CUDA Programming Model · GPU Architecture** — ISA, threads/blocks/grids, warps, SIMT vs SIMD, memory hierarchy, full workload flow | [Lec_02_CPU_CUDA_Basics/](Lec_02_CPU_CUDA_Basics/) |
+| ⭐ | **EdgeAI sub-track** *(self-study deep-dive, not a lecture)* — Fundamentals, every Edge GPU family (Jetson / discrete / iGPU / mobile SoC), non-GPU hardware (NPUs / MCUs / FPGAs) + Edge-vs-Cloud comparison, and CUDA for the edge (JetPack, TensorRT, unified memory) | [EdgeAI/](EdgeAI/) |
 
 Each lecture folder has the same **trio** of files:
 
@@ -62,6 +63,7 @@ Planned topics in this track (more folders will be added over time):
 
 - ✅ **Lec 1** — Introduction to GPU Programming (hardware families, parallelism, Amdahl's Law)
 - ✅ **Lec 2** — CPU basics, CUDA programming model, GPU architecture
+- ✅ **EdgeAI sub-track** — full deep-dive on running GPUs at the edge (see [EdgeAI/](EdgeAI/))
 - 🔭 Memory optimization (coalescing, shared memory tiling)
 - 🔭 Reductions, prefix sums, histograms
 - 🔭 Matrix multiplication deep dive
