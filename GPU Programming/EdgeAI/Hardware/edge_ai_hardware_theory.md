@@ -73,21 +73,21 @@ through a grid of MAC units without writing back to RAM between steps).
 ### The lineup
 
 ```
- ┌──────────────────────────┬──────────┬──────────┬──────────────────────┐
- │ NPU                      │ TOPS     │ Power    │ Where it lives       │
- │                          │          │          │                      │
- ├──────────────────────────┼──────────┼──────────┼──────────────────────┤
- │ Apple Neural Engine (A17)│    35    │  ~2 W    │ Every iPhone/iPad/Mac│
- │ Qualcomm Hexagon (Gen 3) │    45    │  2–5 W   │ Flagship Androids     │
- │ Google Edge TPU (Coral)  │     4    │  0.5–2 W │ USB dongle / dev kits │
- │ Hailo-8                   │    26    │  2.5 W   │ Smart camera SoM     │
+ ┌───────────────────────────┬──────────┬──────────┬───────────────────────┐
+ │ NPU                       │ TOPS     │ Power    │ Where it lives        │
+ │                           │          │          │                       │
+ ├───────────────────────────┼──────────┼──────────┼───────────────────────┤
+ │ Apple Neural Engine (A17) │    35    │  ~2 W    │ Every iPhone/iPad/Mac │
+ │ Qualcomm Hexagon (Gen 3)  │    45    │  2–5 W   │ Flagship Androids     │
+ │ Google Edge TPU (Coral)   │     4    │  0.5–2 W │ USB dongle / dev kits │
+ │ Hailo-8                   │    26    │  2.5 W   │ Smart camera SoM      │
  │ Hailo-15                  │    20    │  5 W     │ Vision SoC            │
  │ Intel NPU (Meteor Lake)   │    11    │  ~6 W    │ Core Ultra laptops    │
  │ AMD XDNA (Ryzen AI 300)   │    50    │  ~5 W    │ Ryzen 7040+ laptops   │
- │ Tesla FSD HW4             │   121    │  ~40 W   │ Tesla cars             │
+ │ Tesla FSD HW4             │   121    │  ~40 W   │ Tesla cars            │
  │ Qualcomm Cloud AI 100     │   400    │  75 W    │ 5G MEC, edge servers  │
  │ Mythic M1076 (analog)     │    25    │  4 W     │ Analog AI, ultra-low-P│
- └──────────────────────────┴──────────┴──────────┴──────────────────────┘
+ └───────────────────────────┴──────────┴──────────┴───────────────────────┘
 ```
 
 ### Programming NPUs
@@ -135,18 +135,18 @@ chips.
 ### The lineup
 
 ```
- ┌────────────────────────────────┬──────────┬──────────┬──────────────┐
- │ MCU                            │ CPU      │ Memory   │ AI helper    │
- ├────────────────────────────────┼──────────┼──────────┼──────────────┤
- │ ARM Cortex-M4F (e.g. STM32F4)  │ 80 MHz   │ 256 KB   │ (DSP ISA only)│
+ ┌─────────────────────────────────┬──────────┬──────────┬───────────────┐
+ │ MCU                             │ CPU      │ Memory   │ AI helper     │
+ ├─────────────────────────────────┼──────────┼──────────┼───────────────┤
+ │ ARM Cortex-M4F (e.g. STM32F4)   │ 80 MHz   │ 256 KB   │ (DSP ISA only)│
  │ ARM Cortex-M7 (STM32H7)         │ 480 MHz  │ 1 MB RAM │ (DSP ISA)     │
  │ ARM Cortex-M33 + Helium (M55)   │ 400 MHz  │ 1 MB RAM │ Helium SIMD   │
  │ ARM Cortex-M55 + Ethos-U55      │ 400 MHz  │ 1 MB RAM │ Ethos-U55 NPU │
- │                                │          │          │ (~0.5 TOPS)   │
- │ ESP32-S3 (Xtensa)              │ 240 MHz  │ 512 KB   │ Vector DSP    │
- │ Raspberry Pi Pico (RP2040)     │ 133 MHz  │ 264 KB   │ none (PIO)    │
- │ Alif Ensemble (M55 + U55)      │ 400 MHz  │ 13 MB    │ Ethos-U55 NPU │
- └────────────────────────────────┴──────────┴──────────┴──────────────┘
+ │                                 │          │          │ (~0.5 TOPS)   │
+ │ ESP32-S3 (Xtensa)               │ 240 MHz  │ 512 KB   │ Vector DSP    │
+ │ Raspberry Pi Pico (RP2040)      │ 133 MHz  │ 264 KB   │ none (PIO)    │
+ │ Alif Ensemble (M55 + U55)       │ 400 MHz  │ 13 MB    │ Ethos-U55 NPU │
+ └─────────────────────────────────┴──────────┴──────────┴───────────────┘
 ```
 
 ### Programming TinyML
@@ -248,16 +248,16 @@ DSP if it's the best fit.
 This is the most-photographed table in all of Edge AI. Memorise it.
 
 ```
- ┌──────────────────┬──────────────────────────┬───────────────────────────┐
- │ Feature          │ EDGE GPU                 │ CLOUD / DATA-CENTER GPU   │
- ├──────────────────┼──────────────────────────┼───────────────────────────┤
+ ┌──────────────────┬──────────────────────────┬────────────────────────────┐
+ │ Feature          │ EDGE GPU                 │ CLOUD / DATA-CENTER GPU    │
+ ├──────────────────┼──────────────────────────┼────────────────────────────┤
  │ Primary goal     │ Real-time inference      │ Massive training,          │
  │                  │ + power efficiency       │ batched throughput         │
  │ Location         │ On-site: robot, camera,  │ Remote data-center         │
  │                  │ vehicle, factory         │ (us-east-1, europe-west-4) │
  │ Typical power    │ Low: watts to tens of W  │ High: hundreds of W per GPU│
  │                  │ (5 W Nano → 70 W T4)     │ (H100 = 700 W, B200 =1000W)│
- │ Latency          │ Extremely low (<50 ms)   │ Variable (50–500 ms round)│
+ │ Latency          │ Extremely low (<50 ms)   │ Variable (50–500 ms round) │
  │ Memory           │ 4 – 24 GB shared/LPDDR5  │ 40 – 192 GB HBM3/HBM3e     │
  │ Memory bandwidth │ 50 – 320 GB/s            │ 2,000 – 8,000 GB/s         │
  │ Cost per unit    │ $100 – $3,000            │ $15,000 – $40,000          │
@@ -268,9 +268,9 @@ This is the most-photographed table in all of Edge AI. Memorise it.
  │ Scale            │ Millions of devices      │ Thousands of GPUs per pod  │
  │ Best workload    │ Inference at the edge    │ Training giant models,     │
  │                  │                          │ serving massive LLMs       │
- │ Who buys?        │ OEMs, robotics, auto,    │ Hyperscalers, AI labs,      │
+ │ Who buys?        │ OEMs, robotics, auto,    │ Hyperscalers, AI labs,     │
  │                  │ industrial               │ cloud vendors              │
- └──────────────────┴──────────────────────────┴───────────────────────────┘
+ └──────────────────┴──────────────────────────┴────────────────────────────┘
 ```
 
 ### The 4 key differences in one line each
