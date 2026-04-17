@@ -8,7 +8,7 @@
 > topic-by-topic deep dive into Edge AI, built because Edge AI is the
 > natural next step after learning GPU programming.
 >
-> **Style:** Easy 5-year-old story first, then the technical depth, then
+> **Style:** Easy format to unerstand things included, then the technical depth, then
 > real runnable code. Same style as the rest of this repo.
 
 ---
@@ -141,12 +141,11 @@ Planned topics in this sub-track (I'll add more over time):
 
 ## 🎓 Where this fits in my MTech study plan
 
-I'm doing **MTech in AI at IIT Jodhpur**. In the GPU Programming course
-I've learned how data-center GPUs do massive parallel work. Edge AI is
-the "other half" of the same story — the *same* GPU tricks, pushed into
+In the GPU Programming course, I've learned how data-center GPUs do massive parallel work. 
+Edge AI is the "other half" of the same story — the *same* GPU tricks, pushed into
 tiny, power-starved, always-on devices that you can actually ship in a
-product. Together, they cover the full **cloud → edge** spectrum that
-modern AI systems run on.
+product. 
+Together, they cover the full **cloud → edge** spectrum that modern AI systems run on.
 
 ---
 
