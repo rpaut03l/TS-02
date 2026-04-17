@@ -85,20 +85,20 @@ the ball.
 ### The full table
 
 ```
- ┌─────────────────┬───────────────────────────┬───────────────────────────┐
- │ Dimension       │ ☁️  Cloud AI              │ 📱 Edge AI                │
- ├─────────────────┼───────────────────────────┼───────────────────────────┤
- │ Where it runs   │ Data-center, far away     │ On the device itself       │
- │ Typical latency │ 50 – 500 ms (round-trip)  │ 1 – 50 ms                  │
- │ Needs internet? │ YES                       │ NO (or optional)           │
- │ Power budget    │ ~500 – 1000 W per GPU     │ 0.1 – 30 W per device      │
- │ Model size      │ Unlimited (100s of GB OK) │ Usually < 100 MB           │
+ ┌─────────────────┬───────────────────────────┬─────────────────────────────┐
+ │ Dimension       │ ☁️  Cloud AI              │ 📱 Edge AI                  │
+ ├─────────────────┼───────────────────────────┼─────────────────────────────┤
+ │ Where it runs   │ Data-center, far away     │ On the device itself        │
+ │ Typical latency │ 50 – 500 ms (round-trip)  │ 1 – 50 ms                   │
+ │ Needs internet? │ YES                       │ NO (or optional)            │
+ │ Power budget    │ ~500 – 1000 W per GPU     │ 0.1 – 30 W per device       │
+ │ Model size      │ Unlimited (100s of GB OK) │ Usually < 100 MB            │
  │ Who sees data?  │ Cloud + vendor            │ Only the device             │
  │ Cost model      │ Pay per call / per hour   │ One-time chip cost          │
  │ Scales to…      │ Millions of calls / sec   │ Millions of devices         │
  │ Update speed    │ Instant (redeploy cloud)  │ Slow (OTA to each device)   │
  │ Best for        │ Huge models, batch jobs   │ Real-time, private, offline │
- └─────────────────┴───────────────────────────┴───────────────────────────┘
+ └─────────────────┴───────────────────────────┴─────────────────────────────┘
 ```
 
 ### The important trade-off
@@ -350,25 +350,25 @@ encrypted weights, and attestation are not optional.
 ## 9. How Edge AI fits inside the bigger AI world
 
 ```
- ┌───────────────────────────────────────────────────────────────┐
+ ┌────────────────────────────────────────────────────────────────┐
  │                       MODERN AI STACK                          │
- ├───────────────────────────────────────────────────────────────┤
+ ├────────────────────────────────────────────────────────────────┤ 
  │                                                                │
- │   ☁️  CLOUD AI           (training, batch, giant LLMs)          │
- │     │                                                          │
- │     ▼  pushes a compressed model                               │
+ │   ☁️  CLOUD AI           (training, batch, giant LLMs)         │
+ │     │                                                           │
+ │     ▼  pushes a compressed model                                │
  │   📡 MEC / EDGE SERVER  (multi-camera, store-level, 5G)         │
- │     │                                                          │
- │     ▼                                                          │
+ │     │                                                           │
+ │     ▼                                                           │
  │   🏠 GATEWAY / HUB       (home hub, car head-unit)              │
- │     │                                                          │
- │     ▼                                                          │
+ │     │                                                           │
+ │     ▼                                                           │
  │   📱 DEVICE EDGE         (phones, Jetson, Coral)                │
- │     │                                                          │
- │     ▼                                                          │
+ │     │                                                           │
+ │     ▼                                                           │
  │   💡 TINY-ML             (MCUs, doorbells, lightbulbs)          │
- │                                                                │
- └───────────────────────────────────────────────────────────────┘
+ │                                                                 │
+ └─────────────────────────────────────────────────────────────────┘
 ```
 
 - **Cloud trains, edge serves.** That's the default.
@@ -423,7 +423,7 @@ encrypted weights, and attestation are not optional.
 
 Now that you know *what* Edge AI is and *why* it exists, the next
 folder [`GPU_Types/`](../GPU_Types/README.md) zooms in on the **GPU
-chips** that actually make it happen — the Jetson family, discrete
+Chips** that actually make it happen — the Jetson family, discrete
 edge GPUs, integrated GPUs, and mobile SoC GPUs.
 
 ---
