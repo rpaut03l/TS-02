@@ -277,7 +277,7 @@ on GStreamer + TensorRT.
                                     ▲
                                     │            ↓
                                ┌─────────┐   ┌────────────┐
-                               │ nvtracker│←  │ nvinfer-sec│
+                               │nvtracker│←  │ nvinfer-sec│
                                └─────────┘   └────────────┘
                                     ↓
                                ┌─────────┐   ┌────────────┐
