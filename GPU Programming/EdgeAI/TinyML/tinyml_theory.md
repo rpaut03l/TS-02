@@ -347,19 +347,19 @@ Edge Impulse is the **"no-code" TinyML platform**. Web UI to:
 
 ```
  ┌─────────────────────────────────────────────────────────────────┐
- │                 TinyML end-to-end                                │
- │                                                                   │
- │  1. Collect data   (sensor logs; Edge Impulse CLI)                │
- │  2. Pick task      (KWS / VWW / anomaly / IC)                     │
- │  3. Design model   (DS-CNN / MobileNet-tiny / autoencoder)        │
- │  4. Train          (Keras / PyTorch; standard desktop)            │
- │  5. INT8 quant     (full-integer PTQ, representative dataset)     │
- │  6. Export tflite  (converter; verify size < flash)               │
- │  7. Compile        (Vela if Ethos-U55; `xxd -i` to C array)       │
- │  8. Integrate      (TFLM main.cc, define arena, ops resolver)     │
- │  9. Flash & test   (on-device accuracy ≈ desktop?)                │
- │ 10. Measure        (latency, energy via ULPMark or scope)         │
- │ 11. Iterate        (prune, smaller input, different arch)         │
+ │                 TinyML end-to-end                               │
+ │                                                                 │
+ │  1. Collect data   (sensor logs; Edge Impulse CLI)              │
+ │  2. Pick task      (KWS / VWW / anomaly / IC)                   │
+ │  3. Design model   (DS-CNN / MobileNet-tiny / autoencoder)      │
+ │  4. Train          (Keras / PyTorch; standard desktop)          │
+ │  5. INT8 quant     (full-integer PTQ, representative dataset)   │
+ │  6. Export tflite  (converter; verify size < flash)             │
+ │  7. Compile        (Vela if Ethos-U55; `xxd -i` to C array)     │
+ │  8. Integrate      (TFLM main.cc, define arena, ops resolver)   │
+ │  9. Flash & test   (on-device accuracy ≈ desktop?)              │
+ │ 10. Measure        (latency, energy via ULPMark or scope)       │
+ │ 11. Iterate        (prune, smaller input, different arch)       │
  └─────────────────────────────────────────────────────────────────┘
 ```
 
