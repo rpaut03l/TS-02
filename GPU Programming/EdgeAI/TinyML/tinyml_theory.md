@@ -120,20 +120,20 @@ output is **INT8** (then dequantized in a one-liner if needed).
 
 ```
  ┌──────────────────────────────────┬─────────┬────────────┬──────────┐
- │ Chip                              │ Core    │ RAM / Flash│ AI extra │
+ │ Chip                             │ Core    │ RAM / Flash│ AI extra │
  ├──────────────────────────────────┼─────────┼────────────┼──────────┤
- │ STM32F4 (e.g. F411)               │ M4F     │ 128K/512K  │ DSP ISA  │
- │ STM32H7 (e.g. H743)               │ M7      │ 1M /2M     │ DSP ISA  │
- │ Nordic nRF52840                   │ M4F     │ 256K/1M    │ BLE + DSP│
- │ ESP32-S3 (Espressif)              │ Xtensa  │ 512K/flash │ Vector DSP│
- │ Raspberry Pi Pico (RP2040)        │ M0+ ×2  │ 264K/2M    │ PIO      │
- │ Arduino Nano 33 BLE Sense         │ M4F     │ 256K/1M    │ mic+IMU  │
- │ Alif Ensemble E7                  │ M55 ×2 +│ 13.5M SRAM │ Ethos-U55│
- │                                   │ A32 ×2  │            │ 0.5 TOPS │
- │ Himax WE2                         │ M55     │ 2.4M SRAM  │ Ethos-U55│
- │ Ambiq Apollo4 Blue Plus           │ M4F     │ 2.75M flash│ ultra-LP │
- │ Syntiant NDP120                   │ tiny core│ 640 KB    │ "always- │
- │                                   │          │            │ on" NDP  │
+ │ STM32F4 (e.g. F411)              │ M4F     │ 128K/512K  │ DSP ISA  │
+ │ STM32H7 (e.g. H743)              │ M7      │ 1M /2M     │ DSP ISA  │
+ │ Nordic nRF52840                  │ M4F     │ 256K/1M    │ BLE + DSP│
+ │ ESP32-S3 (Espressif)             │ Xtensa  │ 512K/flash │Vector DSP│
+ │ Raspberry Pi Pico (RP2040)       │ M0+ ×2  │ 264K/2M    │ PIO      │
+ │ Arduino Nano 33 BLE Sense        │ M4F     │ 256K/1M    │ mic+IMU  │
+ │ Alif Ensemble E7                 │ M55 ×2 +│ 13.5M SRAM │ Ethos-U55│
+ │                                  │ A32 ×2  │            │ 0.5 TOPS │
+ │ Himax WE2                        │ M55     │ 2.4M SRAM  │ Ethos-U55│
+ │ Ambiq Apollo4 Blue Plus          │ M4F     │ 2.75M flash│ ultra-LP │
+ │ Syntiant NDP120                  │tiny core│ 640 KB     │ "always- │
+ │                                  │         │            │ on" NDP  │
  └──────────────────────────────────┴─────────┴────────────┴──────────┘
 ```
 
