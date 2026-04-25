@@ -68,7 +68,7 @@ field. One *round* looks like this:
 
 ```
  ┌────────────────────────────────────────────────────────────────────┐
- │                      ONE FedAvg ROUND                               │
+ │                      ONE FedAvg ROUND                              │
  └────────────────────────────────────────────────────────────────────┘
 
    (server holds the global model w_t)
@@ -96,8 +96,8 @@ field. One *round* looks like this:
  │ local│   │ local│   │ local│ │
  │ train│   │ train│   │ train│ │
  └──────┘   └──────┘   └──────┘ │
-     │         │         │       │
-     └─────────┼─────────┴───────┘
+     │         │         │      │
+     └─────────┼─────────┴──────┘
                ▼
        AGGREGATE (weighted mean)
 ```
@@ -121,18 +121,18 @@ is 10× less than if every local step was a global step (that's
 
 ```
  ┌──────────────────────┬──────────────────────┬──────────────────────┐
- │                      │ Cross-DEVICE         │ Cross-SILO            │
+ │                      │ Cross-DEVICE         │ Cross-SILO           │
  ├──────────────────────┼──────────────────────┼──────────────────────┤
- │ # clients            │ thousands–millions   │ 2–100                 │
- │ Reliability          │ unreliable (Wi-Fi,   │ reliable (datacenters)│
- │                      │ battery, sleep)      │                       │
- │ Data per client      │ small (MB–GB)        │ large (TB+)            │
- │ Selection per round  │ ~100–1000 sampled    │ all (or most)          │
- │ Trust model          │ untrusted clients    │ mutually-suspicious    │
- │                      │ + trusted server     │ peers                  │
- │ Examples             │ phones, smartwatches │ hospitals, banks       │
- │ Framework            │ TensorFlow Federated,│ Flower, NVIDIA FLARE,  │
- │                      │ Gboard production    │ OpenFL                 │
+ │ # clients            │ thousands–millions   │ 2–100                │
+ │ Reliability          │ unreliable (Wi-Fi,   │reliable (datacenters)│
+ │                      │ battery, sleep)      │                      │
+ │ Data per client      │ small (MB–GB)        │ large (TB+)          │
+ │ Selection per round  │ ~100–1000 sampled    │ all (or most)        │
+ │ Trust model          │ untrusted clients    │ mutually-suspicious  │
+ │                      │ + trusted server     │ peers                │
+ │ Examples             │ phones, smartwatches │ hospitals, banks     │
+ │ Framework            │ TensorFlow Federated,│ Flower, NVIDIA FLARE,│
+ │                      │ Gboard production    │ OpenFL               │
  └──────────────────────┴──────────────────────┴──────────────────────┘
 ```
 
