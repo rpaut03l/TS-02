@@ -86,7 +86,7 @@ the ball.
 
 ```
  ┌─────────────────┬───────────────────────────┬─────────────────────────────┐
- │ Dimension       │ ☁️  Cloud AI              │ 📱 Edge AI                  │
+ │ Dimension       │ ☁️  Cloud AI              │ 📱 Edge AI                 │
  ├─────────────────┼───────────────────────────┼─────────────────────────────┤
  │ Where it runs   │ Data-center, far away     │ On the device itself        │
  │ Typical latency │ 50 – 500 ms (round-trip)  │ 1 – 50 ms                   │
