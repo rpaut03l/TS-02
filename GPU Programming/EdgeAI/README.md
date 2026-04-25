@@ -73,6 +73,12 @@ with NVIDIA JetPack / TensorRT**.
 | 2 | **GPU Types for Edge AI** | [GPU_Types/](GPU_Types/) | Every variety of GPU used at the edge — NVIDIA Jetson family (Nano, TX2, Xavier, Orin), discrete edge GPUs (RTX 4000 Ada SFF, T4), integrated GPUs (iGPUs), mobile SoC GPUs (Adreno, Mali, Apple GPU) — with specs, prices, use cases |
 | 3 | **Edge Hardware (beyond GPUs)** | [Hardware/](Hardware/) | The *non-GPU* chips: NPUs (Apple Neural Engine, Qualcomm Hexagon, Google Coral, Hailo-8), MCUs for TinyML (Cortex-M, ESP32), FPGAs at the edge, the **Edge-vs-Cloud GPU comparison**, power & thermal budgets, benchmarks |
 | 4 | **EdgeAI with CUDA** | [CUDA_for_Edge/](CUDA_for_Edge/) | How CUDA changes when you move from desktop to Jetson — JetPack SDK, unified memory on Tegra, TensorRT, DeepStream, INT8 calibration, `nvpmodel` / `jetson_clocks`, cross-compile workflow |
+| 5 | **Model Compression** | [Model_Compression/](Model_Compression/) | Quantization (INT8, INT4, FP16, NF4), PTQ vs QAT, pruning (unstructured, structured, 2:4), knowledge distillation, low-rank factorization, the accuracy-size-latency Pareto |
+| 6 | **Deployment Frameworks** | [Deployment_Frameworks/](Deployment_Frameworks/) | TensorFlow Lite (delegates, ops, micro), ONNX Runtime (Execution Providers, IOBinding), OpenVINO (IR, AUTO/MULTI/HETERO, NNCF) — side-by-side and when to use which |
+| 7 | **TinyML** | [TinyML/](TinyML/) | AI on microcontrollers — TFLite Micro, CMSIS-NN, Ethos-U55 + Vela, Edge Impulse, the 4 canonical tasks (KWS, VWW, anomaly, IC), MLPerf Tiny |
+| 8 | **Federated Learning & On-Device Training** | [Federated_Learning/](Federated_Learning/) | FedAvg / FedSGD / FedProx, cross-device vs cross-silo, non-IID data, communication efficiency, Secure Aggregation, DP-SGD, LoRA adapters on the edge |
+| 9 | **Edge MLOps** | [Edge_MLOps/](Edge_MLOps/) | CI for edge (ONNX + TFLite + IR + signature), OTA updates (full / model-only / delta), dual-partition A/B, staged rollouts, telemetry, drift detection (PSI, KS), fleet managers |
+| 10 | **Security & Privacy** | [Security_Privacy/](Security_Privacy/) | Secure boot chain of trust, TEE / HSM (TrustZone, Secure Enclave, SGX), AES-GCM encrypted weights, adversarial attacks (FGSM, PGD) + defences, side channels, privacy (DP, PII redaction), regulations (GDPR, HIPAA, DPDPA, EU AI Act) |
 
 Each topic folder has the same **trio** of files:
 
@@ -113,12 +119,12 @@ Planned topics in this sub-track (I'll add more over time):
 - ✅ **GPU Types for Edge AI** — Jetson, discrete edge, iGPU, mobile SoC GPU varieties
 - ✅ **Edge Hardware (beyond GPUs)** — NPUs, MCUs, FPGAs, Edge-vs-Cloud comparison
 - ✅ **EdgeAI with CUDA** — JetPack, TensorRT, unified memory on Tegra
-- 🔭 **Model compression** — quantization (INT8, INT4), pruning, knowledge distillation
-- 🔭 **Deployment frameworks** — TensorFlow Lite, ONNX Runtime, OpenVINO deep-dives
-- 🔭 **TinyML** — AI on microcontrollers (TF Lite Micro, CMSIS-NN)
-- 🔭 **Federated Learning & on-device training**
-- 🔭 **Edge MLOps** — OTA updates, monitoring, drift at the edge
-- 🔭 **Security & privacy** on edge devices
+- ✅ **Model compression** — quantization (INT8, INT4), pruning, knowledge distillation
+- ✅ **Deployment frameworks** — TensorFlow Lite, ONNX Runtime, OpenVINO deep-dives
+- ✅ **TinyML** — AI on microcontrollers (TF Lite Micro, CMSIS-NN)
+- ✅ **Federated Learning & on-device training**
+- ✅ **Edge MLOps** — OTA updates, monitoring, drift at the edge
+- ✅ **Security & privacy** on edge devices
 
 ---
 
